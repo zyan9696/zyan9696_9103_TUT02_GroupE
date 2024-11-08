@@ -1,25 +1,20 @@
 # zyan9696_9103_TUT02_GroupE
 
 ## The Instruction of Individual Work:
-------
 In my individual work, pill shapes move randomly in the background. The background color changes automatically over time. Some food icons grow and shrink automatically.
 
 ## The Individual Code: 
-------
 Perlin Noise
 
 ## The Animation Explanation:
-------
 I transitions from a static to a dynamic state by removing noLoop(), but initially, this makes the movement of the pill shapes too rapid. To address this and achieve a more natural motion, I use Perlin noise. Perlin noise provides smooth random variations, allowing the movement speed of the pills to be more controlled and organic. It creates the random movement of pill shapes in the background, giving them a fluid and natural dynamic effect. Meanwhile, the background color changes automatically over time, allowing viewers to feel the continuous evolution of the scene. Moveover, some food icons in the composition periodically grow and shrink, with a rhythmic frequency that enhances the visual interest and brings a sense of visual rhythm. These combined dynamic effects infuse the entire piece with energy and vitality.
 
 ## The Inspiration:
-------
 The inspiration I gained from Damien Hirst's Spot Painting made me reflect on the infinite possibilities of simple shapes. This piece uses densely packed colored dots as its main element, creating an abstract yet harmonious visual effect through repeated dot patterns. The different-colored dots are randomly distributed across the canvas, each appearing independent yet interconnected, evoking a sense of intricate complexity and unified balance. This style inspired me to incorporate randomly distributed pill-like shapes into my work, allowing them to freely populate the background, creating an effect that is both vibrant and orderly.
 ![Spot Painting](https://github.com/zyan9696/zyan9696_9103_TUT02_GroupE/blob/0eb3a844a01e3e7de9d4e96a716595d9d55aa6c0/Image/Spot%20painting.jpg)
 
 ## The Technical Explanation:
-------
-I define a randomPillShape class to create different types of "pill" shapes and use Perlin noise to achieve smooth, random motion. The size and movement range of each pill are generated randomly, ensuring that each pill has a unique appearance within the composition.
+I define a randomPillShape class to create different types of pill shapes and use Perlin noise to achieve smooth, random motion. The size and movement range of each pill are generated randomly, ensuring that each pill has a unique appearance within the composition.
 ```javascript
 class randomPillShape {
   constructor(type) {
