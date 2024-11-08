@@ -1,7 +1,7 @@
 // Array to hold randomPillShape objects
 let pills = []; 
 // the number of total number of randomPillShape
-let totalShapes = 2000;
+let totalShapes = 1700;
 
 //This class creates and manages random shapes with randomPillShape
 class randomPillShape {
@@ -14,7 +14,7 @@ class randomPillShape {
     // Relative size of the pill
     this.size = random(0.005, 0.015);
     // Scale factor for noise movement
-    this.PillScale = random(0.1, 0.3);
+    this.PillScale = random(0.1, 0.2);
     // Starting point for Perlin noise
     this.PillLocation = random(10);
   }
