@@ -130,19 +130,18 @@ let plates = [
 
 // Create a food array to store the the postion of foods
 let foods = [
-  { x: 0.135, y: 0.13 ,type:1},
+  // { x: 0.135, y: 0.13 ,type:6},
   { x: 0.43, y: 0.07 ,type:2},
   { x: 0.73, y: 0.008 ,type:3},
-  { x: 0.07, y: 0.4 ,type:4},
+  // { x: 0.07, y: 0.4 ,type:4},
   { x: 0.35, y: 0.34 ,type:3},
-  { x: 0.63, y: 0.27 ,type:5},
+  // { x: 0.63, y: 0.27 ,type:5},
   { x: 0.93, y: 0.2 ,type:6},
   { x: -0.02, y: 0.67 ,type:6},
-  // { x: 0.27, y: 0.62 ,type:6},
-  { x: 0.56, y: 0.55 ,type:7},
+  // { x: 0.56, y: 0.55 ,type:7},
   { x: 0.85, y: 0.48 ,type:8},
   { x: 0.16, y: 0.89 ,type:9},
-  { x: 0.46, y: 0.85 ,type:10},
+  // { x: 0.46, y: 0.85 ,type:10},
   { x: 0.76, y: 0.77 ,type:11},
   { x: 1.05, y: 0.71 ,type:4},
   { x: 0.65, y: 1.07 ,type:5},
@@ -152,10 +151,10 @@ let foods = [
 function setup() {
   createCanvas(windowWidth, windowHeight);
   rectMode(CENTER);
+
   //A for loop generates a randompillshape during each iteration
   for (let i = 0; i < totalShapes; i++) {
     let shapeType;
-
     if (i < totalShapes / 4) {
       shapeType = 'Pill1';
     } else if (i < (totalShapes * 2) / 4) {
@@ -165,17 +164,22 @@ function setup() {
     } else {
       shapeType = 'Pill4';
     }
+
     // Add them to the array
     pills.push(new randomPillShape(shapeType));
   }
 }
 
+//Updates the size of the canvas to new window dimensions
 function windowResized() {
   let side = min(windowWidth, windowHeight);
   resizeCanvas(side, side);
 }
 
 let noiseOffset = 0;
+let scaleFactor = 1;
+//the speed of scaling
+let scaleSpeed = 0.03;
 
 function draw() {
   // Make sure the canvas is a smaller value of the window width and height, keeping it square
@@ -198,13 +202,17 @@ function draw() {
       pill.display();
     }
 
-  let PlateRatio = 0.265;
-  let PlateDiameter = PlateRatio * side;
 
+  // the size of plates
+  let PlateRatio = 0.265;
+  // the diameter of plates
+  let PlateDiameter = PlateRatio * side;
+  // use a loop to draw plates
   for (let i = 0; i < plates.length; i++) {
     let plate = plates[i];
     noFill();
     noStroke();
+    //Define the position of plates 
     switch (plate.type){
       case 1:
         drawPinkPlate(plate.x, plate.y, PlateDiameter,side)
@@ -228,12 +236,15 @@ function draw() {
         drawRainbowPlate(plate.x, plate.y, PlateDiameter,side)
         break;
     }
+
   }
 
+  // Use a loop to draw foods
   for (let i = 0; i < foods.length; i++) {
     let food = foods[i];
     noFill();
     noStroke();
+    //Define the position of foods
  switch (food.type){
       case 1:
         drawSushi(food.x, food.y, PlateDiameter,side)
@@ -269,13 +280,29 @@ function draw() {
         drawLimeCake(food.x, food.y, PlateDiameter,side)
           break;
     }
+
+    //Use sin() to create a smooth oscillation for scaleFactor
+    scaleFactor = map(sin(frameCount * scaleSpeed), -1, 1, 0, 1.4);
+    // Draw the food with scaling effect
+    // Relative position (50% x)
+    let x1 = 0.5; 
+    // Relative position (50% y)
+    let y1 = 0.5; 
+    // Radius dynamically adjusted
+    let r1 = 0.2*side; 
+    // Draw the food with the position
+    drawLimeCake(0.56, 0.55, r1 * scaleFactor, min(side, side));
+    drawPizza(0.46, 0.85, r1 * scaleFactor, min(side, side));
+    drawLightDonut(0.07, 0.4 , r1 * scaleFactor, min(side, side));
+    drawBurger( 0.63, 0.27 , r1 * scaleFactor, min(side, side));
+    drawSushi( 0.135, 0.13 , r1 * scaleFactor, min(side, side));
 }
 }
 
 
 // Draw Plates Function
  //draw pink plate
- function drawPinkPlate(x,y,r,side){
+  function drawPinkPlate(x,y,r,side){
    
   // pink flower
   function drawPinkFlower(x, y) {
