@@ -152,7 +152,7 @@ let foods = [
 function setup() {
   createCanvas(windowWidth, windowHeight);
   rectMode(CENTER);
-
+  //A for loop generates a randompillshape during each iteration
   for (let i = 0; i < totalShapes; i++) {
     let shapeType;
 
@@ -165,37 +165,46 @@ function setup() {
     } else {
       shapeType = 'Pill4';
     }
-
+    // Add them to the array
     pills.push(new randomPillShape(shapeType));
   }
 }
 
-//Updates the size of the canvas to new window dimensions
 function windowResized() {
   let side = min(windowWidth, windowHeight);
   resizeCanvas(side, side);
 }
 
+let noiseOffset = 0;
+
 function draw() {
   // Make sure the canvas is a smaller value of the window width and height, keeping it square
   let side = min(windowWidth, windowHeight);
   resizeCanvas(side, side);
-  background(255, 216, 216);
+  
+  //Generate a color value
+  let noiseValue = noise(noiseOffset);
+  //Map the output of Perlin noise to the color range from 0 to 255
+  let r = map(noiseValue, 0, 1, 235, 255);
+  let g = map(noiseValue, 0, 1, 140, 240);
+  let b = map(noiseValue, 0, 1, 150, 230);
+  //Set the background color that can automatically changes
+  background(r, g, b);
+  //Increment the offset value slightly each frame
+  noiseOffset += 0.015;
 
+     // Display each pill
      for (let pill of pills) {
       pill.display();
     }
 
-  // the size of plates
   let PlateRatio = 0.265;
-  // the diameter of plates
   let PlateDiameter = PlateRatio * side;
-  // use a loop to draw plates
+
   for (let i = 0; i < plates.length; i++) {
     let plate = plates[i];
     noFill();
     noStroke();
-    //Define the position of plates
     switch (plate.type){
       case 1:
         drawPinkPlate(plate.x, plate.y, PlateDiameter,side)
@@ -220,11 +229,11 @@ function draw() {
         break;
     }
   }
+
   for (let i = 0; i < foods.length; i++) {
     let food = foods[i];
     noFill();
     noStroke();
-      //Define the position of food 
  switch (food.type){
       case 1:
         drawSushi(food.x, food.y, PlateDiameter,side)
@@ -246,7 +255,8 @@ function draw() {
           break;
       case 7:
         drawLimeCake(food.x, food.y, PlateDiameter,side)
-          break;      case 8:
+          break;
+      case 8:
         drawToast(food.x, food.y, PlateDiameter,side)
           break;
       case 9:
